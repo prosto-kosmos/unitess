@@ -1,0 +1,60 @@
+<p-dialog
+  [header]="editableEvent() ? 'Edit Event' : 'Add Event'"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  [visible]="visible()"
+  (visibleChange)="onVisibleChange($event)"
+>
+  <form [formGroup]="form" (submit)="onSave()">
+    <div class="container">
+      <p-floatlabel variant="on">
+        <input id="name" type="text" pInputText formControlName="name" />
+        <label for="name">Name</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input
+          id="description"
+          type="text"
+          pInputText
+          formControlName="description"
+        />
+        <label for="description">Description</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input id="place" type="text" pInputText formControlName="place" />
+        <label for="place">Place</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <p-select
+          id="type"
+          formControlName="type"
+          [options]="types"
+          optionLabel="label"
+          optionValue="value"
+        />
+        <label for="type">Type</label>
+      </p-floatlabel>
+      @if(form.controls.amount.enabled) {
+        <p-floatlabel variant="on">
+          <input id="amount" type="number" pInputText formControlName="amount" />
+          <label for="amount">Amount</label>
+        </p-floatlabel>
+      }
+      @if(form.controls.genre.enabled) {
+        <p-floatlabel variant="on">
+          <input id="genre" type="text" pInputText formControlName="genre" />
+          <label for="genre">Genre</label>
+        </p-floatlabel>
+      }
+    </div>
+    <div class="actions">
+      <p-button
+        label="Cancel"
+        type="button"
+        severity="secondary"
+        (onClick)="onClose()"
+      />
+      <p-button label="Save" type="submit" [disabled]="form.invalid" />
+    </div>
+  </form>
+</p-dialog>
